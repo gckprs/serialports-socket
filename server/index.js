@@ -11,8 +11,14 @@ const server = app.listen(3000, () => {
 
 const io = require('socket.io')(server)
 
+io.on('connection', (socket) => {
+    console.log(socket.id)
+})
+
 const parser = new Readline()
 port.pipe(parser)
 
-parser.on('data', line => console.log(line))
+parser.on('data', line => {
+    io.emit('data', line)
+})
 

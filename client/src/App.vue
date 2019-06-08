@@ -4,9 +4,21 @@
 </template>
 
 <script>
+import io from 'socket.io-client'
+
 export default {
   name: 'app',
+  data() {
+    return {
+      socket: io('localhost:3000')
+    }
+  },
   components: {
+  },
+  mounted() {
+    this.socket.on('data', (data) => {
+      console.log(data)
+    })
   }
 }
 </script>
